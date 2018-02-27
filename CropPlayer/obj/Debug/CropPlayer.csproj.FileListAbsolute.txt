@@ -1,0 +1,14 @@
+D:\Etc\CropPlayer\CropPlayer\bin\Debug\CropPlayer.exe.config
+D:\Etc\CropPlayer\CropPlayer\bin\Debug\CropPlayer.exe
+D:\Etc\CropPlayer\CropPlayer\bin\Debug\CropPlayer.pdb
+D:\Etc\CropPlayer\CropPlayer\obj\Debug\CropPlayer.csprojResolveAssemblyReference.cache
+D:\Etc\CropPlayer\CropPlayer\obj\Debug\MainWindow.g.cs
+D:\Etc\CropPlayer\CropPlayer\obj\Debug\App.g.cs
+D:\Etc\CropPlayer\CropPlayer\obj\Debug\CropPlayer_MarkupCompile.cache
+D:\Etc\CropPlayer\CropPlayer\obj\Debug\CropPlayer_MarkupCompile.lref
+D:\Etc\CropPlayer\CropPlayer\obj\Debug\MainWindow.baml
+D:\Etc\CropPlayer\CropPlayer\obj\Debug\CropPlayer.g.resources
+D:\Etc\CropPlayer\CropPlayer\obj\Debug\CropPlayer.Properties.Resources.resources
+D:\Etc\CropPlayer\CropPlayer\obj\Debug\CropPlayer.csproj.GenerateResource.Cache
+D:\Etc\CropPlayer\CropPlayer\obj\Debug\CropPlayer.exe
+D:\Etc\CropPlayer\CropPlayer\obj\Debug\CropPlayer.pdb

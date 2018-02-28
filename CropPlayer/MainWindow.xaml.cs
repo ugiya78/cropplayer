@@ -31,7 +31,30 @@ namespace CropPlayer
         TimeSpan startSpan;
         TimeSpan endSpan;
 
-        ObservableCollection<PositionDuration> List = null; 
+        ObservableCollection<PositionDuration> List = null;
+
+        string video = string.Empty;
+
+        public static readonly DependencyProperty FFMpegPathProperty = DependencyProperty.Register("FFMpegPath", typeof(string), typeof(MainWindow), new UIPropertyMetadata(Properties.Settings.Default.FFMpegPath));
+        public string FFMpegPath
+        {
+            get { return (string)GetValue(FFMpegPathProperty); }
+            set { SetValue(FFMpegPathProperty, value); }
+        }
+
+        public static readonly DependencyProperty OutputPathProperty = DependencyProperty.Register("OutputPath", typeof(string), typeof(MainWindow), new UIPropertyMetadata(Properties.Settings.Default.OutputPath));
+        public string OutputPath
+        {
+            get { return (string)GetValue(OutputPathProperty); }
+            set { SetValue(OutputPathProperty, value); }
+        }
+
+        public static readonly DependencyProperty FileExtentionProperty = DependencyProperty.Register("FileExtention", typeof(string), typeof(MainWindow), new UIPropertyMetadata(Properties.Settings.Default.FileExtention));
+        public string FileExtention
+        {
+            get { return (string)GetValue(FileExtentionProperty); }
+            set { SetValue(FileExtentionProperty, value); }
+        }
 
         public MainWindow()
         {
@@ -91,6 +114,7 @@ namespace CropPlayer
 
             if (openFile.ShowDialog().Value)
             {
+                video = openFile.FileName;
                 media.Source = new Uri(openFile.FileName);
             }
         }
@@ -181,40 +205,19 @@ namespace CropPlayer
 
             if (select != null)
             {
-                string start = ((PositionDuration)select).Start.ToString(@"hh\:mm\:ss");
-                string duration = ((PositionDuration)select).Duration.ToString(@"hh\:mm\:ss");
-                string name = ((PositionDuration)select).Name;
-
-                //Process process = new Process();
-                //process.StartInfo.FileName = "cmd.exe";
-                //process.StartInfo.Arguments = "/k DIR";
-                //process.StartInfo.UseShellExecute = false;
-                //process.StartInfo.RedirectStandardOutput = true;
-                //process.StartInfo.RedirectStandardError = true;
-
-                //process.OutputDataReceived += Process_OutputDataReceived;
-                //process.ErrorDataReceived += Process_ErrorDataReceived;
-                //process.Start();
-                //process.BeginOutputReadLine();
-                //process.BeginErrorReadLine();
-                //process.WaitForExit();
+                Process process = new Process();
+                process.StartInfo.FileName = "cmd.exe";
+                process.StartInfo.Arguments = $"/k {CreateCommand((PositionDuration)select)}";
+                process.Start();
             }
+        }
 
+        private string CreateCommand(PositionDuration duration)
+        {
+            string output = $"{System.IO.Path.Combine(Properties.Settings.Default.OutputPath, duration.Name)}.{Properties.Settings.Default.FileExtention}";
+            string command = $"{Properties.Settings.Default.FFMpegPath} -ss {duration.Start.ToString(@"hh\:mm\:ss")} -t {duration.Duration.ToString(@"hh\:mm\:ss")} -vcodec copy -acodec copy {output}";
 
-
-            //Process process = new Process();
-            //process.StartInfo.FileName = "cmd.exe";
-            //process.StartInfo.Arguments = "/k dir";
-            //////process.StartInfo.UseShellExecute = false;
-            //////process.StartInfo.RedirectStandardOutput = true;
-            //////process.StartInfo.RedirectStandardError = true;
-
-            //////process.OutputDataReceived += Process_OutputDataReceived;
-            //////process.ErrorDataReceived += Process_ErrorDataReceived;
-            //process.Start();
-            ////process.BeginOutputReadLine();
-            ////process.BeginErrorReadLine();
-            ////process.WaitForExit();
+            return command;
         }
 
         private void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
@@ -226,6 +229,32 @@ namespace CropPlayer
         {
             //Dispatcher.Invoke(() => { log.AppendText(e.Data + Environment.NewLine); });
             
+        }
+
+        private void btnUpdateFFMpegPath_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.FFMpegPath = tbFFMpeg.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void btnUpdateOutput_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.OutputPath = tbOutput.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void btnUpdateExt_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.FileExtention = tbExt.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void btnCreate_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (PositionDuration d in List)
+            {
+                log.AppendText(CreateCommand(d)+Environment.NewLine);
+            }
         }
     }
 

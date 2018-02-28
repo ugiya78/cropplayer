@@ -25,6 +25,41 @@
                 <MenuItem Name="btnOpen" Header="Open" Click="btnOpen_Click"></MenuItem>
                 <MenuItem Name="btnClose" Header="Close" Click="btnClose_Click"></MenuItem>
             </MenuItem>
+            <MenuItem Header="Settings">
+                <MenuItem Height="30">
+                    <MenuItem.Header>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="FFMpeg Path" Width="80" VerticalAlignment="Center"/>
+                                <TextBox Name="tbFFMpeg" Text="{Binding Path=FFMpegPath, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Width="150" Margin="10 0 10 0"/>
+                                <Button Name="btnUpdateFFMpegPath" Content="Update" Click="btnUpdateFFMpegPath_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem Height="30">
+                    <MenuItem.Header>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="Output Path" Width="80" VerticalAlignment="Center"/>
+                                <TextBox Name="tbOutput" Text="{Binding Path=OutputPath, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Width="150" Margin="10 0 10 0"/>
+                                <Button Name="btnUpdateOutput" Content="Update" Click="btnUpdateOutput_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem Height="30">
+                    <MenuItem.Header>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="File extention" Width="80" VerticalAlignment="Center"/>
+                                <TextBox Name="tbExt" Text="{Binding Path=FileExtention, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Width="150" Margin="10 0 10 0"/>
+                                <Button Name="btnUpdateExt" Content="Update" Click="btnUpdateExt_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </MenuItem.Header>
+                </MenuItem>
+            </MenuItem>
         </Menu>
         <MediaElement Grid.Row="1" Name="media" LoadedBehavior="Manual" ScrubbingEnabled="True" MediaOpened="media_MediaOpened"/>
         <Slider Grid.Row="2" Name="sbPosition" Orientation="Horizontal" VerticalAlignment="Center" Thumb.DragStarted="sbPosition_DragStarted" Thumb.DragCompleted="sbPosition_DragCompleted"/>
@@ -42,6 +77,7 @@
             <Button Name="btnSetEndPosition" Content="Set End Position" Width="150" Click="btnSetEndPosition_Click"/>
             <Button Name="btnSavePosition" Content="Save Position" Width="150" Click="btnSavePosition_Click"/>
             <Button Name="btnExtract" Content="Extract" Width="150" Click="btnExtract_Click"/>
+            <Button Name="btnCreate" Content="Create" Width="150" Click="btnCreate_Click"/>
             <TextBlock Name="tbCurrentPosition"/>
         </StackPanel>
         <RichTextBox Grid.Row="5" Grid.Column="0" Name="log"></RichTextBox>
